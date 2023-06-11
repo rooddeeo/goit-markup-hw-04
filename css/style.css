@@ -74,6 +74,7 @@ body {
 	--hero-background: #2e2f42;
 	--pressed-state: #404bbf;
 	--light: #f4f4fd;
+	--background-icon: #8e8f99;
 }
 
 /* -- INDEX STYLE PAGE -- */
@@ -81,6 +82,7 @@ body {
 
 .header {
 	border-bottom: 1px solid #e7e9fc;
+	box-shadow: 0px 2px 1px rgba(46, 47, 66, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 6px rgba(46, 47, 66, 0.08);
 }
 
 .container {
@@ -144,7 +146,7 @@ body {
 	content: "";
 	position: absolute;
 	left: 0;
-	bottom: 0;
+	bottom: -1px;
 	width: 100%;
 	height: 4px;
 	background-color: var(--pressed-state);
@@ -186,15 +188,18 @@ body {
 /* -- MAIN -- */
 /* -- SECTION HERO`S -- */
 
-.heros-container {
-	padding-top: 188px;
-	padding-bottom: 188px;
+.heros {
 	max-width: 1440px;
 	background-color: var(--hero-background);
 	background-image: linear-gradient(rgba(46, 47, 66, 0.7), rgba(46, 47, 66, 0.7)), url(../images/bg-hero.jpg);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
+}
+
+.heros-container {
+	padding-top: 188px;
+	padding-bottom: 188px;
 }
 
 .heros-title {
@@ -224,7 +229,7 @@ body {
 	cursor: pointer;
 	border: none;
 	border-radius: 4px;
-	transition-property: background-color, color;
+	transition-property: background-color;
 	transition-duration: 250ms;
 	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -232,7 +237,6 @@ body {
 .heros-button:hover,
 .heros-button:focus {
 	background-color: var(--pressed-state);
-	color: var(--white-background);
 }
 
 /* -- SECTION DIGNYTY -- */
@@ -252,8 +256,11 @@ body {
 
 .dignity-list-icon {
 	width: 100%;
+	height: 112px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	background-color: var(--light);
-	padding: 24px 100px;
 	border-radius: 4px;
 	margin-bottom: 8px;
 }
@@ -329,7 +336,7 @@ body {
 }
 
 .team-description {
-	padding: 32px 16px;
+	padding: 32px 0;
 }
 
 .team-sub-title {
@@ -346,11 +353,15 @@ body {
 	margin-bottom: 8px;
 }
 
-.team-social-item {
+.team-social-person-item {
 	display: flex;
-	align-items: center;
 	justify-content: center;
 	gap: 24px;
+}
+
+.team-social-person {
+	width: 40px;
+	height: 40px;
 }
 
 .team-social-link {
@@ -400,6 +411,7 @@ body {
 	letter-spacing: 0.02em;
 	text-align: center;
 	margin-bottom: 72px;
+	color: var(--hero-background);
 }
 
 .customers-list {
@@ -409,18 +421,7 @@ body {
 
 .customers-list-item {
 	height: 88px;
-	border: 1px solid #8e8f99;
-	border-radius: 4px;
 	width: calc((100% - (5 * 24px)) / 6);
-	transition-property: border, border-radius;
-	transition-duration: 250ms;
-	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.customers-list-item:hover,
-.customers-list-item:focus {
-	border: 1px solid var(--pressed-state);
-	border-radius: 4px;
 }
 
 .customers-item-link {
@@ -429,10 +430,22 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	color: var(--background-icon);
+	border: 1px solid var(--background-icon);
+	border-radius: 4px;
+	transition-property: border-color, color;
+	transition-duration: 250ms;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.customers-item-link:hover,
+.customers-item-link:focus {
+	border-color: var(--pressed-state);
+	color: var(--pressed-state);
 }
 
 .customers-link-icon {
-	fill: #8e8f99;
+	fill: currentColor;
 	transition-property: fill;
 	transition-duration: 250ms;
 	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -449,9 +462,13 @@ body {
 	padding: 100px 0px;
 }
 
-.foote-container {
+.footer-container {
 	display: flex;
-	gap: 120px;
+	align-items: baseline;
+}
+
+.footer-content {
+	margin-right: 120px;
 }
 
 .footer-logo {
@@ -480,13 +497,13 @@ body {
 
 .footer-social-list {
 	display: flex;
-	width: 100%;
-	height: 100%;
 	gap: 16px;
 }
 
 .footer-social-link {
 	display: flex;
+	width: 100%;
+	height: 100%;
 	justify-content: center;
 	align-items: center;
 	padding: 8px;
@@ -504,6 +521,81 @@ body {
 
 .footer-social-icon {
 	fill: var(--light);
+}
+
+/* -- BACKDROP -- */
+
+.backdrop {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(46, 47, 66, 0.4);
+	position: fixed;
+	top: 0;
+	transition-property: visibility, opacity;
+	transition-duration: 250ms;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.is-hidden {
+	visibility: hidden;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.backdrop-modal {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(1);
+	transition-property: transform;
+	transition-duration: 250ms;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	width: 408px;
+	min-height: 584px;
+	background: #fcfcfc;
+	border-radius: 4px;
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.backdrop.is-hidden .backdrop-modal {
+	transform: translate(-50%, -50%) scale(0);
+}
+
+.backdrop-modal-close {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	position: absolute;
+	top: 24px;
+	right: 24px;
+	width: 24px;
+	height: 24px;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 50%;
+	background-color: #e7e9fc;
+	cursor: pointer;
+	transition-property: background-color, border, fill;
+	transition-duration: 250ms;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.backdrop-modal-close:hover,
+.backdrop-modal-close:focus {
+	background-color: var(--pressed-state);
+	border: none;
+	fill: var(--light);
+}
+
+.backdrop-modal-icon {
+	transition-property: fill;
+	transition-duration: 250ms;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.backdrop-modal-icon:hover,
+.backdrop-modal-icon:focus {
+	fill: #ffffff;
 }
 
 /* -- PORTFOLIO STYLE PAGE -- */
@@ -534,14 +626,14 @@ body {
 	color: var(--primary-brand);
 	background-color: var(--light);
 	cursor: pointer;
-	transition-property: border, color, background-color, box-shadow;
+	transition-property: border-color, color, background-color, box-shadow;
 	transition-duration: 250ms;
 	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .filter-button:hover,
 .filter-button:focus {
-	border: 1px solid transparent;
+	border-color: #e7e9fc;
 	color: var(--white-background);
 	background-color: var(--pressed-state);
 	box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.08), 0px 2px 2px rgba(0, 0, 0, 0.12);
@@ -557,8 +649,8 @@ body {
 	width: calc((100% - (24px * 2)) / 3);
 }
 
-.result-list-item:hover .result-list-cover,
-.result-list-item:focus .result-list-cover {
+.result-list-item:hover .result-list-cover-text,
+.result-list-item:focus .result-list-cover-text {
 	transform: translateY(0);
 }
 
@@ -603,10 +695,15 @@ body {
 	overflow: hidden;
 }
 
-.result-list-cover {
+.result-list-cover-text {
+	color: var(--light);
+	line-height: 1.5;
+	letter-spacing: 0.02em;
+	color: #f4f4fd;
 	position: absolute;
 	top: 0;
 	left: 0;
+	width: 100%;
 	height: 100%;
 	background-color: var(--primary-brand);
 	padding: 40px 32px;
@@ -614,68 +711,4 @@ body {
 	transition-property: transform;
 	transition-duration: 250ms;
 	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.result-list-cover-text {
-	color: var(--light);
-	line-height: 1.5;
-	letter-spacing: 0.02em;
-}
-
-.backdrop {
-	width: 100%;
-	height: 100%;
-	background-color: rgba(46, 47, 66, 0.4);
-	position: fixed;
-	top: 0;
-	transition-property: visibility, opacity;
-	transition-duration: 250ms;
-	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.is-hidden {
-	visibility: hidden;
-	opacity: 0;
-	pointer-events: none;
-}
-
-.backdrop-modal {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%) scale(1);
-	transition-property: transform;
-	transition-duration: 250ms;
-	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-	width: 408px;
-	min-height: 584px;
-	background: #fcfcfc;
-	border-radius: 4px;
-	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 2px 1px rgba(0, 0, 0, 0.2);
-}
-
-.backdrop.is-hidden .backdrop-modal {
-	transform: translate(-50%, -50%) scale(0);
-}
-
-.backdrop-modal-close {
-	display: block;
-	position: absolute;
-	top: 24px;
-	right: 24px;
-	width: 24px;
-	height: 24px;
-	border: 1px solid rgba(0, 0, 0, 0.1);
-	border-radius: 50%;
-	background-color: #e7e9fc;
-	cursor: pointer;
-	transition-property: background-color, fill;
-	transition-duration: 250ms;
-	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.backdrop-modal-close:hover,
-.backdrop-modal-close:focus {
-	background-color: var(--pressed-state);
-	fill: var(--light);
 }
